@@ -1,42 +1,85 @@
 'use strict'
 
 import React, { Component } from 'react';
+import Ajax from '@fdaciuk/ajax';
+import AppContent from './components/appContent';
 
-const App = () => {
-  render(
-    <div>My app</div>
-  );
-};
+class App extends Component{
+  constructor () {
+    super();
 
+    this.state = {
+      userInfo: null,
+      repos: [],
+      starred: [],
+      isFetching: false
+    };
 
-// In ES6
-// class App extends Component {
-//   render () {
-//     return (
-//       <div>
-//         <Button handleClick = { () => console.log('Hi!') } >
-//           Click me
-//         </Button>
-//       </div>
-//      );
-//   }
-// }
+    this.handleSearch = this.handleSearch.bind(this);
+  }
 
-// In ES5
-// const App = React.createClass({
-//   render () {
-//     return (
-//       <div className="container">
-//         <Title 
-//           name="Jessé"
-//           lastName={{
-//             first: "Pires Barbato",
-//             last: "Rocha"
-//           }}
-//         />
-//       </div>
-//     );
-//   },
-// });
+  getGitHubApiUrl (username, type) {
+    const internalUser = username ? `/${username}` : '';
+    const internalType = type ? `/${type}` : '';
+    return `https://api.github.com/users${internalUser}${internalType}`;
+  }
+
+  handleSearch (e) {
+    const value = e.target.value;
+    const keyCode = e.which || e.keyCode;
+    const ENTER = 13;
+
+    if (keyCode === ENTER) {
+      this.setState({
+        isFetching: true
+      });
+
+      Ajax().get(this.getGitHubApiUrl(value))
+      .then((result) => {
+        this.setState({
+          userInfo: {
+            username: result.name,
+            photo: result.avatar_url,
+            login: result.login,
+            repos: result.public_repos,
+            followers: result.followers,
+            following: result.following
+          },
+          repos: [],
+          starred: []
+        });
+      })
+      .always(() => {
+        this.setState({
+          isFetching: false
+        });
+      });
+    }
+  }
+
+  getRepos (type) {
+    return (e) => { 
+      const username = this.state.userInfo.login;
+      Ajax().get(this.getGitHubApiUrl(username, type))
+      .then((result) => {
+        this.setState({
+          [type]: result.map((repo) => ({
+            name: repo.name,
+            link: repo.html_url
+          }))
+        });
+      });
+    }
+  }
+
+  render () {
+    return <AppContent 
+      { ...this.state }
+      handleSearch={ this.handleSearch }
+      getRepos={ this.getRepos('repos') }
+      getStarred={ this.getRepos('starred') }
+    />;
+  }
+}
 
 export default App;
