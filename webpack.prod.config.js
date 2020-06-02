@@ -5,31 +5,32 @@ const webpack = require('webpack');
 const validate = require('webpack-validator');
 const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = validate({
-  devtool: 'source-map',
-
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    path.join(__dirname, 'src', 'index.js'),
-  ],
+  entry: path.join(__dirname, 'src', 'index.js'),
   
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name]-[hash].js',
-    publicPath: ''
   },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-
-    new DashboardPlugin(),
-
+  plugins: [  
     new ExtractTextPlugin('[name]-[hash].css'),
-    
+
+    new webpack.DefinePlugin({
+      'procces.env': {
+        'NODE_ENV': '"production"'
+      }
+    }),
+
+    new webpack.optimize.UglifyJsPlugin({ // to minify
+      compress: { warnings: false }
+    }),
+
+    new webpack.optimize.DedupePlugin(), // to avoid duplicate code
+
+    new webpack.optimize.OccurrenceOrderPlugin(),
+
     new HtmlPlugin({
       title: 'GitHub App',
       template: path.join(__dirname, 'src', 'html', 'template.html')
@@ -47,9 +48,8 @@ module.exports = validate({
       test: /\.css$/,
       exclude: /node_modules/,
       include: /src/,
-      loaders: ['style', 'css?modules']
-    }
-  ]
+      loader: ExtractTextPlugin.extract('style', 'css')
+    }]
   }
 
 });

@@ -1,9 +1,10 @@
 'use strict'
 
 import React, { PropTypes } from 'react';
+import style from './userInfo.css';
 
 const UserInfo = ({ userInfo }) => (
-  <div className='user-info' >
+  <div className={ style.userInfo } >
     <img src={ userInfo.photo } />
     <h1 className='username' >
       <a href={ `https://github.com/${userInfo.login}` } >
