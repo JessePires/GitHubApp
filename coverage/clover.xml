@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1591241665053" clover="3.2.0">
+  <project timestamp="1591241665054" name="All files">
+    <metrics statements="28" coveredstatements="28" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5" elements="47" coveredelements="47" complexity="0" loc="28" ncloc="28" packages="1" files="1" classes="1">
+      <file name="index.js" path="/home/jesse/UTFPR/projeto_chamada_automatica/react-ninja-m02/GitHubApp/src/utils/pagination/index.js">
+        <metrics statements="28" coveredstatements="28" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="33" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="27" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="16" count="13" type="stmt"/>
+        <line num="18" count="13" type="stmt"/>
+        <line num="20" count="39" type="stmt"/>
+        <line num="24" count="65" type="stmt"/>
+        <line num="29" count="13" type="stmt"/>
+        <line num="30" count="13" type="stmt"/>
+        <line num="32" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="41" count="13" type="stmt"/>
+        <line num="42" count="13" type="stmt"/>
+        <line num="44" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="55" count="13" type="stmt"/>
+        <line num="56" count="13" type="stmt"/>
+        <line num="58" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="67" count="13" type="stmt"/>
+        <line num="68" count="13" type="stmt"/>
+        <line num="70" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="71" count="5" type="stmt"/>
+        <line num="78" count="13" type="stmt"/>
+      </file>
+    </metrics>
+  </project>
+</coverage>
