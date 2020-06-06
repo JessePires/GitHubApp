@@ -4,7 +4,7 @@ import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import Actions from './index';
 
-const stories = storiesOf('Div', module);
+const stories = storiesOf('Actions', module);
 
 stories.add('first story', () => (
   <Actions 
